@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import "../styles/MenuBar.css";
 
 function MenuBar() {
-  const { user, logout, isAdmin } = useContext(AuthContext);
+  const { user, logout, isAdmin, isAgent } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -18,15 +18,33 @@ function MenuBar() {
         <div className="logo">
           <h2>CASNOS</h2>
         </div>
-        
+
         <div className="nav-links">
+          {/* ADMIN links */}
           {isAdmin() && (
             <>
               <Link to="/admin" className="nav-link">Dashboard</Link>
               <Link to="/admin/users" className="nav-link">Users</Link>
               <Link to="/admin/departments" className="nav-link">Departments</Link>
               <Link to="/admin/roles" className="nav-link">Roles</Link>
-              <Link to="/admin/settings" className="nav-link">Settings</Link>
+              <Link to="/services" className="nav-link">Service Catalog</Link>
+            </>
+          )}
+
+          {/* AGENT links */}
+          {isAgent() && (
+            <>
+              <Link to="/agent" className="nav-link">Dashboard</Link>
+              <Link to="/services" className="nav-link">Service Catalog</Link>
+            </>
+          )}
+
+          {/* EMPLOYEE links */}
+          {!isAdmin() && !isAgent() && (
+            <>
+              <Link to="/dashboard" className="nav-link">Home</Link>
+              <Link to="/services" className="nav-link">Service Catalog</Link>
+              <Link to="/my-tickets" className="nav-link">My Tickets</Link>
             </>
           )}
         </div>
