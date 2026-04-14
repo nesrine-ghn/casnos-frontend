@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -15,7 +15,7 @@ import AgentDashboard from "./pages/AgentDashboard";
 function App() {
 
   return (
-    <BrowserRouter>
+    
 
       <Routes>
         
@@ -83,7 +83,7 @@ function App() {
         } />
       </Routes>
 
-    </BrowserRouter>
+    
   );
 }
 
