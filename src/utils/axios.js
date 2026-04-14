@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create custom axios instance
 const api = axios.create({
-  baseURL: "http://localhost:3000"
+  baseURL: import.meta.env.VITE_API_URL || "https://casnos-backend.onrender.com"
 });
 
 // Interceptor - runs before EVERY request
