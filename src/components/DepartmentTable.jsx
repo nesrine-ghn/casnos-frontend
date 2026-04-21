@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../utils/axios";
-//import "../styles/DepartmentTable.css";
+import "../styles/DepartmentTable.css";
 
 function DepartmentTable() {
   const [departments, setDepartments] = useState([]);

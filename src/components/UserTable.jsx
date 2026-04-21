@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import api from "../utils/axios";
-//import "../styles/UserTable.css";
+import "../styles/UsersTable.css";
 
-function UserTable({ onRefresh }) {
+// ✅ Add users prop to receive pre-filtered users
+function UserTable({ users: propUsers, onRefresh }) {
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -15,18 +16,29 @@ function UserTable({ onRefresh }) {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
 
+  // ❌ REMOVE these lines - no more URL filtering in this component
+  // const location = useLocation();
+  // const queryParams = new URLSearchParams(location.search);
+  // const filter = queryParams.get("filter");
+  // const filteredUsers = users.filter(...);
+
   useEffect(() => {
-    fetchAll();
+    fetchMetadata(); // ✅ Only fetch departments and roles here
   }, []);
 
-  const fetchAll = async () => {
+  // ✅ Update users when prop changes
+  useEffect(() => {
+    if (propUsers) {
+      setUsers(propUsers);
+    }
+  }, [propUsers]);
+
+  const fetchMetadata = async () => {
     try {
-      const [usersRes, depsRes, rolesRes] = await Promise.all([
-        api.get("/users"),
+      const [depsRes, rolesRes] = await Promise.all([
         api.get("/departments"),
         api.get("/roles")
       ]);
-      setUsers(usersRes.data);
       setDepartments(depsRes.data);
       setRoles(rolesRes.data);
     } catch (err) {
@@ -34,30 +46,9 @@ function UserTable({ onRefresh }) {
     }
   };
 
-  const openAddModal = () => {
-    setEditingUser(null);
-    setForm({ firstname: "", lastname: "", email: "", phone: "", department_id: "", role_id: "", password: "" });
-    setError("");
-    setShowModal(true);
-  };
-
-  const openEditModal = (user) => {
-    setEditingUser(user);
-    setForm({
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      phone: user.phone,
-      department_id: user.department_id,
-      role_id: user.role_id,
-      password: ""
-    });
-    setError("");
-    setShowModal(true);
-  };
-
+  // ✅ Remove fetchAll - UsersPage handles user fetching
+  // Just call onRefresh after mutations
   const handleSubmit = async () => {
-    // Basic validation
     if (!form.firstname || !form.lastname || !form.email || !form.phone || !form.department_id || !form.role_id) {
       setError("All fields are required.");
       return;
@@ -84,8 +75,7 @@ function UserTable({ onRefresh }) {
         await api.post("/users/register", form);
       }
       setShowModal(false);
-      fetchAll();
-      onRefresh();
+      onRefresh(); // ✅ Tell parent to refresh
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong.");
     }
@@ -93,23 +83,46 @@ function UserTable({ onRefresh }) {
 
   const handleActivate = async (id) => {
     await api.put(`/users/${id}/activate`);
-    fetchAll(); onRefresh();
+    onRefresh();
   };
 
   const handleDeactivate = async (id) => {
     await api.put(`/users/${id}/deactivate`);
-    fetchAll(); onRefresh();
+    onRefresh();
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     await api.delete(`/users/${id}`);
-    fetchAll(); onRefresh();
+    onRefresh();
+  };
+
+  const openAddModal = () => {
+    setEditingUser(null);
+    setForm({ firstname: "", lastname: "", email: "", phone: "", department_id: "", role_id: "", password: "" });
+    setError("");
+    setShowModal(true);
+  };
+
+  const openEditModal = (user) => {
+    setEditingUser(user);
+    setForm({
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      phone: user.phone,
+      department_id: user.department_id,
+      role_id: user.role_id,
+      password: ""
+    });
+    setError("");
+    setShowModal(true);
   };
 
   const getDeptName = (id) => departments.find(d => d.id === id)?.name || "—";
   const getRoleName = (id) => roles.find(r => r.id === id)?.name || "—";
 
+  // ✅ Search filter only (no status filtering)
   const filtered = users.filter(u =>
     `${u.firstname} ${u.lastname} ${u.email}`.toLowerCase().includes(search.toLowerCase())
   );

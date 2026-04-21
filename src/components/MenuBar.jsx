@@ -34,6 +34,8 @@ function MenuBar() {
           {/* AGENT links */}
           {isAgent() && (
             <>
+              <Link to="/tickets" className="nav-link">Tickets</Link>
+              {/*<Link to="/" className="nav-link">Analytics</Link>*/}
               <Link to="/agent" className="nav-link">Dashboard</Link>
               <Link to="/services" className="nav-link">Service Catalog</Link>
             </>

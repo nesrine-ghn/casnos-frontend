@@ -120,7 +120,7 @@ function AgentDashboard() {
                   </td>
                   <td>{ticket.title}</td>
                   <td>{ticket.firstname} {ticket.lastname}</td>
-                  <td>{ticket.service_name || "—"}</td>
+                  {/* <td>{ticket.service_name || "—"}</td> */}
                   <td>{new Date(ticket.created_at).toLocaleDateString()}</td>
                   <td>
                     <span

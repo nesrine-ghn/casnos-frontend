@@ -69,7 +69,7 @@ function App() {
                   <CreateTicketPage />
                 </ProtectedRoute>
         } />
-        <Route path="/tickets/my" element={
+        <Route path="/my-tickets" element={
                 <ProtectedRoute>
                   <MyTicketsPage />
                 </ProtectedRoute>
@@ -77,6 +77,11 @@ function App() {
 
         {/* Agent route */}
         <Route path="/agent" element={
+          <ProtectedRoute agentOnly={true}>
+            <AgentDashboard />
+          </ProtectedRoute> 
+        } />
+        <Route path="/tickets" element={
           <ProtectedRoute agentOnly={true}>
             <AgentDashboard />
           </ProtectedRoute> 

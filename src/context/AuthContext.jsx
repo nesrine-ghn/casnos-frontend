@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isAgent = () => {
-    return user?.role === "agent";
+    return user?.role === "Technician";
   };
 
   // 7. VALUES SHARED

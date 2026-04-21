@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import MenuBar from "../components/MenuBar";
 import api from "../utils/axios";
-//import "../styles/CreateTicket.css";
+import "../styles/CreateTicket.css";
 
 function CreateTicketPage() {
   const { user } = useContext(AuthContext);
