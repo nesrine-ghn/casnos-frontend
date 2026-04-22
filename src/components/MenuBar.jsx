@@ -46,7 +46,7 @@ function MenuBar() {
             <>
               <Link to="/dashboard" className="nav-link">Home</Link>
               <Link to="/services" className="nav-link">Service Catalog</Link>
-              <Link to="/my-tickets" className="nav-link">My Tickets</Link>
+              <Link to="/tickets/my" className="nav-link">My Tickets</Link>
             </>
           )}
         </div>

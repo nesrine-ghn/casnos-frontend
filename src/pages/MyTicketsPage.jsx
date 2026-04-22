@@ -12,7 +12,7 @@ function MyTicketsPage() {
 
   const fetchTickets = async () => {
     try {
-      const res = await api.get("/my-tickets");
+      const res = await api.get("/tickets/my");
       setTickets(res.data);
     } catch (err) {
       console.error(err);

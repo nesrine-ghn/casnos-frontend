@@ -11,6 +11,7 @@ import ServiceCatalogPage from "./pages/ServiceCatalogPage";
 import CreateTicketPage from "./pages/CreateTicketPage";
 import MyTicketsPage from "./pages/MyTicketsPage";
 import AgentDashboard from "./pages/AgentDashboard";
+import TicketsPage from "./pages/TicketsPage";
 
 function App() {
 
@@ -69,7 +70,7 @@ function App() {
                   <CreateTicketPage />
                 </ProtectedRoute>
         } />
-        <Route path="/my-tickets" element={
+        <Route path="/tickets/my" element={
                 <ProtectedRoute>
                   <MyTicketsPage />
                 </ProtectedRoute>
@@ -83,7 +84,7 @@ function App() {
         } />
         <Route path="/tickets" element={
           <ProtectedRoute agentOnly={true}>
-            <AgentDashboard />
+            <TicketsPage /> 
           </ProtectedRoute> 
         } />
       </Routes>

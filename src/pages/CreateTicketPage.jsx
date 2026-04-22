@@ -28,7 +28,7 @@ function CreateTicketPage() {
     try {
       await api.post("/tickets", form);
       setSuccess(true);
-      setTimeout(() => navigate("/my-tickets"), 1500);
+      setTimeout(() => navigate("/tickets/my"), 1500);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong.");
     }
