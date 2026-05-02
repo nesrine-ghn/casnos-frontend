@@ -39,7 +39,7 @@ function Loginform() {
         navigate("/agent");
       } else {
         console.log("🔍 Navigating to /dashboard");
-        navigate("/dashboard");
+        navigate("/tickets/my");
       }
 
     } catch (err) {

@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuBar from "../components/MenuBar";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext";
 import "../styles/MyTickets.css";
 
 function MyTicketsPage() {
   const [tickets, setTickets] = useState([]);
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   useEffect(() => { fetchTickets(); }, []);
 
@@ -39,12 +41,12 @@ function MyTicketsPage() {
       <MenuBar />
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1>My Tickets</h1>
-          <p>Track all your submitted requests</p>
+          <h1>{t("myTickets")}</h1>
+          <p>{t("trackYourRequests")}</p>
         </div>
 
         <button className="btn-add" onClick={() => navigate("/services")} style={{marginBottom:"1.5rem"}}>
-          + New Request
+          + {t("newTicket")}
         </button>
 
         <div className="tickets-list">
@@ -64,7 +66,7 @@ function MyTicketsPage() {
                   color: statusColors[ticket.status]?.color
                 }}
               >
-                {ticket.status.replace("_", " ")}
+                {t(ticket.status)}
               </span>
             </div>
           ))}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext"; 
 import "../styles/DepartmentTable.css";
 
 function DepartmentTable() {
@@ -8,6 +9,8 @@ function DepartmentTable() {
   const [editing, setEditing] = useState(null);
   const [name, setName] = useState("");
   const [error, setError] = useState("");
+
+  const { t } = useLanguage(); // Get translation function
 
   useEffect(() => { fetchDepts(); }, []);
 
@@ -58,16 +61,16 @@ function DepartmentTable() {
   return (
     <div className="dept-table-container">
       <div className="table-header">
-        <h2>Department Management</h2>
-        <button className="btn-add" onClick={openAdd}>+ Add Department</button>
+        <h2>{t("departmentManagement")}</h2>
+        <button className="btn-add" onClick={openAdd}>+ {t("addDepartment")}</button>
       </div>
 
       <table className="dept-table">
         <thead>
           <tr>
             <th>#</th>
-            <th>Department Name</th>
-            <th>Actions</th>
+            <th>{t("departmentName")}</th>
+            <th>{t("actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -76,13 +79,13 @@ function DepartmentTable() {
               <td>{i + 1}</td>
               <td>{d.name}</td>
               <td className="action-btns">
-                <button className="btn-edit" onClick={() => openEdit(d)}>Edit</button>
-                <button className="btn-delete" onClick={() => handleDelete(d.id)}>Delete</button>
+                <button className="btn-edit" onClick={() => openEdit(d)}>{t("edit")}</button>
+                <button className="btn-delete" onClick={() => handleDelete(d.id)}>{t("delete")}</button>
               </td>
             </tr>
           ))}
           {departments.length === 0 && (
-            <tr><td colSpan="3" style={{textAlign:"center", padding:"2rem"}}>No departments yet</td></tr>
+            <tr><td colSpan="3" style={{textAlign:"center", padding:"2rem"}}>{t("noDepartments")}</td></tr>
           )}
         </tbody>
       </table>
@@ -90,17 +93,17 @@ function DepartmentTable() {
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>{editing ? "Edit Department" : "Add Department"}</h3>
+            <h3>{editing ? t("editDepartment") : t("addDepartment")}</h3>
             {error && <p className="modal-error">{error}</p>}
             <input
-              placeholder="Department name"
+              placeholder={t("departmentName")}
               value={name}
               onChange={e => setName(e.target.value)}
               style={{width:"100%", padding:"0.6rem 0.9rem", borderRadius:"8px", border:"1px solid #e2e8f0", fontSize:"0.9rem", marginBottom:"1.5rem", outline:"none"}}
             />
             <div className="modal-footer">
-              <button className="btn-cancel" onClick={() => setShowModal(false)}>Cancel</button>
-              <button className="btn-save" onClick={handleSubmit}>{editing ? "Save Changes" : "Add"}</button>
+              <button className="btn-cancel" onClick={() => setShowModal(false)}>{t("cancel")}</button>
+              <button className="btn-save" onClick={handleSubmit}>{editing ? t("saveChanges") : t("add")}</button>
             </div>
           </div>
         </div>

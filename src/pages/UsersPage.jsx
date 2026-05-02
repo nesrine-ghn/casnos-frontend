@@ -3,12 +3,14 @@ import UserTable from "../components/UserTable";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext";
 import "../styles/UsersPage.css";
 
 function UsersPage() {
   const [users, setUsers] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   
   // ✅ Read filter from URL
   const queryParams = new URLSearchParams(location.search);
@@ -62,21 +64,21 @@ function UsersPage() {
             className={filter === "all" ? "active" : ""}
             onClick={() => handleFilterChange("all")}
           >
-            All
+            {t("all")}
           </button>
 
           <button 
             className={filter === "active" ? "active" : ""}
             onClick={() => handleFilterChange("active")}
           >
-            Active
+            {t("active")}
           </button>
 
           <button 
             className={filter === "pending" ? "active" : ""}
             onClick={() => handleFilterChange("pending")}
           >
-            Pending
+            {t("pending")}
           </button>
         </div>
         <div className="dashboard-content">

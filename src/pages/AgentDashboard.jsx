@@ -3,12 +3,14 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import MenuBar from "../components/MenuBar";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext";
 import "../styles/AgentDashboard.css";
 
 function AgentDashboard() {
   const { user } = useContext(AuthContext);
   const [tickets, setTickets] = useState([]);
   const [filter, setFilter] = useState("all");
+  const { t } = useLanguage();
 
   useEffect(() => { fetchTickets(); }, []);
 
@@ -71,8 +73,8 @@ function AgentDashboard() {
       <MenuBar />
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1>Agent Dashboard</h1>
-          <p>Manage and resolve IT support tickets</p>
+          <h1>{t("agentDashboard")}</h1>
+          <p>{t("manageResolveTickets")}</p>
         </div>
 
         {/* Stat Cards */}
@@ -84,7 +86,7 @@ function AgentDashboard() {
               onClick={() => setFilter(key)}
             >
               <h3>{val}</h3>
-              <p>{key.replace("_", " ")}</p>
+              <p>{t(key)}</p>
             </div>
           ))}
         </div>
@@ -94,13 +96,13 @@ function AgentDashboard() {
           <table className="user-table">
             <thead>
               <tr>
-                <th>Priority</th>
-                <th>Title</th>
-                <th>Submitted By</th>
-                <th>Service</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>{t("priority")}</th>
+                <th>{t("title")}</th>
+                <th>{t("submittedBy")}</th>
+                <th>{t("service")}</th>
+                <th>{t("date")}</th>
+                <th>{t("status")}</th>
+                <th>{t("actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -130,28 +132,28 @@ function AgentDashboard() {
                         color: statusColors[ticket.status]?.color
                       }}
                     >
-                      {ticket.status.replace("_", " ")}
+                      {t(ticket.status)}
                     </span>
                   </td>
                   <td className="action-btns">
                     {ticket.status === "new" && (
                       <button className="btn-activate" onClick={() => handleAssign(ticket.id)}>
-                        Assign to me
+                        {t("assignToMe")}
                       </button>
                     )}
                     {ticket.status === "assigned" && (
                       <button className="btn-edit" onClick={() => handleStatusChange(ticket.id, "in_progress")}>
-                        Start
+                        {t("startProgress")}
                       </button>
                     )}
                     {ticket.status === "in_progress" && (
                       <button className="btn-activate" onClick={() => handleStatusChange(ticket.id, "resolved")}>
-                        Resolve
+                        {t("resolve")}
                       </button>
                     )}
                     {ticket.status === "resolved" && (
                       <button className="btn-deactivate" onClick={() => handleStatusChange(ticket.id, "closed")}>
-                        Close
+                        {t("close")}
                       </button>
                     )}
                   </td>
@@ -159,7 +161,7 @@ function AgentDashboard() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan="7" style={{textAlign:"center", padding:"2rem"}}>No tickets found</td>
+                  <td colSpan="7" style={{textAlign:"center", padding:"2rem"}}>{t("noTicketsFound")}</td>
                 </tr>
               )}
             </tbody>

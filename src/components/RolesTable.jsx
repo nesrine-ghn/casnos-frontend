@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext";
 
 function RolesTable() {
   const [roles, setRoles] = useState([]);
@@ -7,7 +8,7 @@ function RolesTable() {
   const [editing, setEditing] = useState(null);
   const [name, setName] = useState("");
   const [error, setError] = useState("");
-
+  const { t } = useLanguage(); // Get translation function
   useEffect(() => { fetchRoles(); }, []);
 
   const fetchRoles = async () => {
@@ -57,16 +58,16 @@ function RolesTable() {
   return (
     <div className="dept-table-container">
       <div className="table-header">
-        <h2>Role Management</h2>
-        <button className="btn-add" onClick={openAdd}>+ Add Role</button>
+        <h2>{t("roleManagement")}</h2>
+        <button className="btn-add" onClick={openAdd}>+ {t("addRole")}</button>
       </div>
 
       <table className="dept-table">
         <thead>
           <tr>
             <th>#</th>
-            <th>Role Name</th>
-            <th>Actions</th>
+            <th>{t("roleName")}</th>
+            <th>{t("actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -75,13 +76,13 @@ function RolesTable() {
               <td>{i + 1}</td>
               <td>{r.name}</td>
               <td className="action-btns">
-                <button className="btn-edit" onClick={() => openEdit(r)}>Edit</button>
-                <button className="btn-delete" onClick={() => handleDelete(r.id)}>Delete</button>
+                <button className="btn-edit" onClick={() => openEdit(r)}>{t("edit")}</button>
+                <button className="btn-delete" onClick={() => handleDelete(r.id)}>{t("delete")}</button>
               </td>
             </tr>
           ))}
           {roles.length === 0 && (
-            <tr><td colSpan="3" style={{textAlign:"center", padding:"2rem"}}>No roles yet</td></tr>
+            <tr><td colSpan="3" style={{textAlign:"center", padding:"2rem"}}>{t("noRoles")}</td></tr>
           )}
         </tbody>
       </table>
@@ -89,17 +90,17 @@ function RolesTable() {
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>{editing ? "Edit Role" : "Add Role"}</h3>
+            <h3>{editing ? t("editRole") : t("addRole")}</h3>
             {error && <p className="modal-error">{error}</p>}
             <input
-              placeholder="Role name"
+              placeholder={t("roleName")}
               value={name}
               onChange={e => setName(e.target.value)}
               style={{width:"100%", padding:"0.6rem 0.9rem", borderRadius:"8px", border:"1px solid #e2e8f0", fontSize:"0.9rem", marginBottom:"1.5rem", outline:"none"}}
             />
             <div className="modal-footer">
-              <button className="btn-cancel" onClick={() => setShowModal(false)}>Cancel</button>
-              <button className="btn-save" onClick={handleSubmit}>{editing ? "Save Changes" : "Add"}</button>
+              <button className="btn-cancel" onClick={() => setShowModal(false)}>{t("cancel")}</button>
+              <button className="btn-save" onClick={handleSubmit}>{editing ? t("save") : t("add")}</button>
             </div>
           </div>
         </div>

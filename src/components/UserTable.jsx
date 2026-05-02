@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext";
 import "../styles/UsersTable.css";
 
 // ✅ Add users prop to receive pre-filtered users
@@ -15,6 +16,7 @@ function UserTable({ users: propUsers, onRefresh }) {
   });
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
+  const { t } = useLanguage();
 
   // ❌ REMOVE these lines - no more URL filtering in this component
   // const location = useLocation();
@@ -130,29 +132,29 @@ function UserTable({ users: propUsers, onRefresh }) {
   return (
     <div className="user-table-container">
       <div className="table-header">
-        <h2>User Management</h2>
+        <h2>{t("userManagement")}</h2>
         <div className="table-actions">
           <input
             type="text"
-            placeholder="Search users..."
+            placeholder={t("searchUsers")}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="search-input"
           />
-          <button className="btn-add" onClick={openAddModal}>+ Add User</button>
+          <button className="btn-add" onClick={openAddModal}>+ {t("addUser")}</button>
         </div>
       </div>
 
       <table className="user-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Department</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>{t("userName")}</th>
+            <th>{t("email")}</th>
+            <th>{t("phone")}</th>
+            <th>{t("department")}</th>
+            <th>{t("role")}</th>
+            <th>{t("status")}</th>
+            <th>{t("actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -165,21 +167,21 @@ function UserTable({ users: propUsers, onRefresh }) {
               <td>{getRoleName(u.role_id)}</td>
               <td>
                 <span className={`badge ${u.is_active ? "badge-active" : "badge-pending"}`}>
-                  {u.is_active ? "Active" : "Pending"}
+                  {u.is_active ? t("active") : t("pending")}
                 </span>
               </td>
               <td className="action-btns">
-                <button className="btn-edit" onClick={() => openEditModal(u)}>Edit</button>
+                <button className="btn-edit" onClick={() => openEditModal(u)}>{t("edit")}</button>
                 {u.is_active
-                  ? <button className="btn-deactivate" onClick={() => handleDeactivate(u.id)}>Deactivate</button>
-                  : <button className="btn-activate" onClick={() => handleActivate(u.id)}>Activate</button>
+                  ? <button className="btn-deactivate" onClick={() => handleDeactivate(u.id)}>{t("deactivate")}</button>
+                  : <button className="btn-activate" onClick={() => handleActivate(u.id)}>{t("activate")}</button>
                 }
-                <button className="btn-delete" onClick={() => handleDelete(u.id)}>Delete</button>
+                <button className="btn-delete" onClick={() => handleDelete(u.id)}>{t("delete")}</button>
               </td>
             </tr>
           ))}
           {filtered.length === 0 && (
-            <tr><td colSpan="7" style={{textAlign:"center", padding:"2rem"}}>No users found</td></tr>
+            <tr><td colSpan="7" style={{textAlign:"center", padding:"2rem"}}>{t("noUsersFound")}</td></tr>
           )}
         </tbody>
       </table>
@@ -187,28 +189,28 @@ function UserTable({ users: propUsers, onRefresh }) {
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>{editingUser ? "Edit User" : "Add New User"}</h3>
+            <h3>{editingUser ? t("editUser") : t("addNewUser")}</h3>
             {error && <p className="modal-error">{error}</p>}
             <div className="modal-grid">
-              <input placeholder="First Name" value={form.firstname} onChange={e => setForm({...form, firstname: e.target.value})} />
-              <input placeholder="Last Name" value={form.lastname} onChange={e => setForm({...form, lastname: e.target.value})} />
-              <input placeholder="Email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
-              <input placeholder="Phone (05/06/07...)" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+              <input placeholder={t("firstName")} value={form.firstname} onChange={e => setForm({...form, firstname: e.target.value})} />
+              <input placeholder={t("lastName")} value={form.lastname} onChange={e => setForm({...form, lastname: e.target.value})} />
+              <input placeholder={t("email")} value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+              <input placeholder={t("phone")} value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
               {!editingUser && (
-                <input placeholder="Password" type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
+                <input placeholder={t("password")} type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
               )}
               <select value={form.department_id} onChange={e => setForm({...form, department_id: e.target.value})}>
-                <option value="">Select Department</option>
+                <option value="">{t("selectDepartment")}</option>
                 {departments.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
               </select>
               <select value={form.role_id} onChange={e => setForm({...form, role_id: e.target.value})}>
-                <option value="">Select Role</option>
+                <option value="">{t("selectRole")}</option>
                 {roles.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
               </select>
             </div>
             <div className="modal-footer">
-              <button className="btn-cancel" onClick={() => setShowModal(false)}>Cancel</button>
-              <button className="btn-save" onClick={handleSubmit}>{editingUser ? "Save Changes" : "Add User"}</button>
+              <button className="btn-cancel" onClick={() => setShowModal(false)}>{t("cancel")}</button>
+              <button className="btn-save" onClick={handleSubmit}>{editingUser ? t("saveChanges") : t("addUser")}</button>
             </div>
           </div>
         </div>

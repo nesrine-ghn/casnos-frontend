@@ -52,14 +52,15 @@ function App() {
         } />
 
         {/* Regular user route (just needs to be logged in) */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <UserDashboard /> {/* Create this component */}
-            </ProtectedRoute>
-          }
-        />
+        {/*<Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <UserDashboard /> 
+              </ProtectedRoute>
+            }
+          />
+        */}
         <Route path="/services" element={
                 <ProtectedRoute>
                   <ServiceCatalogPage />

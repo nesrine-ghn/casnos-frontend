@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import MenuBar from "../components/MenuBar";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext";
 import "../styles/CreateTicket.css";
 
 function CreateTicketPage() {
@@ -12,7 +13,7 @@ function CreateTicketPage() {
   const [searchParams] = useSearchParams();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-
+  const { t } = useLanguage();
   const [form, setForm] = useState({
     title: searchParams.get("name") || "",
     description: "",
@@ -39,20 +40,20 @@ function CreateTicketPage() {
       <MenuBar />
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1>Submit a Request</h1>
-          <p>Fill in the details below to submit your IT request</p>
+          <h1>{t("submitRequest")}</h1>
+          <p>{t("fillDetailsBelow")}</p>
         </div>
 
         <div className="ticket-form-card">
           {success && (
             <div className="success-msg">
-              ✅ Ticket submitted successfully! Redirecting...
+              ✅ {t("ticketSubmittedSuccess")}
             </div>
           )}
           {error && <div className="error-msg">{error}</div>}
 
           <div className="form-group">
-            <label>Your Name</label>
+            <label>{t("yourName")}</label>
             <input
               value={`${user?.firstname} ${user?.lastname}`}
               disabled
@@ -61,7 +62,7 @@ function CreateTicketPage() {
           </div>
 
           <div className="form-group">
-            <label>Request Title</label>
+            <label>{t("ticketTitle")}</label>
             <input
               placeholder="e.g. Need a new laptop"
               value={form.title}
@@ -70,9 +71,9 @@ function CreateTicketPage() {
           </div>
 
           <div className="form-group">
-            <label>Description</label>
+            <label>{t("ticketDescription")}</label>
             <textarea
-              placeholder="Describe your request in detail..."
+              placeholder={t("describeInDetail")}
               value={form.description}
               onChange={e => setForm({...form, description: e.target.value})}
               rows={5}
@@ -81,25 +82,25 @@ function CreateTicketPage() {
 
           <div className="form-row">
             <div className="form-group">
-              <label>Priority</label>
+              <label>{t("priority")}</label>
               <select
                 value={form.priority}
                 onChange={e => setForm({...form, priority: e.target.value})}
               >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="critical">Critical</option>
+                <option value="low">{t("low")}</option>
+                <option value="medium">{t("medium")}</option>
+                <option value="high">{t("high")}</option>
+                <option value="critical">{t("critical")}</option>
               </select>
             </div>
           </div>
 
           <div className="form-actions">
             <button className="btn-cancel" onClick={() => navigate("/services")}>
-              Cancel
+              {t("cancel")}
             </button>
             <button className="btn-save" onClick={handleSubmit}>
-              Submit Request
+              {t("submitRequest")}
             </button>
           </div>
         </div>

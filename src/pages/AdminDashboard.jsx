@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import MenuBar from "../components/MenuBar";
 import StatCards from "../components/StatCards";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext";
 import "../styles/AdminDashboard.css";
 
 function AdminDashboard() {
@@ -12,6 +13,7 @@ function AdminDashboard() {
     activeUsers: 0,
     pendingUsers: 0,
   });
+    const { t } = useLanguage();
 
   useEffect(() => { fetchStats(); }, []);
 
@@ -34,8 +36,8 @@ function AdminDashboard() {
       <MenuBar />
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1>Welcome, {user?.firstname}!</h1>
-          <p>Manage your organization from this dashboard</p>
+          <h1>{t("welcome")}, {user?.firstname}!</h1>
+          <p>{t("manageOrganization")}</p>
         </div>
         <StatCards stats={stats} />
       </div>

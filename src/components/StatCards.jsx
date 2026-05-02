@@ -1,25 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/StatCards.css";
+import { useLanguage } from "../context/LanguageContext";
 
 function StatCards({ stats }) {
   const navigate = useNavigate();
+  const { t } = useLanguage(); // Get translation function
   const cards = [
     {
-      title: "Total Users",
+      title: t("totalUsers"),
       value: stats.totalUsers,
       icon: "👥",
       color: "#3b82f6", // blue
       filter: "all"
     },
     {
-      title: "Active Users",
+      title: t("activeUsers"),
       value: stats.activeUsers,
       icon: "✅",
       color: "#10b981", // green
       filter: "active"
     },
     {
-      title: "Pending Activation",
+      title: t("pendingActivation"),
       value: stats.pendingUsers,
       icon: "⏳",
       color: "#f59e0b", // orange

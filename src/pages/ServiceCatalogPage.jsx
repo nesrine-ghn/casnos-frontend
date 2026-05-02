@@ -4,11 +4,13 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import MenuBar from "../components/MenuBar";
 import api from "../utils/axios";
+import { useLanguage } from "../context/LanguageContext";
 import "../styles/ServiceCatalog.css";
 
 function ServiceCatalogPage() {
   const { isAdmin } = useContext(AuthContext);
   const [services, setServices] = useState([]);
+  const { t } = useLanguage();
   const [filter, setFilter] = useState("All");
   const navigate = useNavigate();
 
@@ -40,8 +42,8 @@ function ServiceCatalogPage() {
       <MenuBar />
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1>Service Catalog</h1>
-          <p>{isAdmin() ? "Browse available IT services" : "Select a service to submit a request"}</p>
+          <h1>{t("serviceCatalog")}</h1>
+          <p>{isAdmin() ? t("browseServices") : t("selectService")}</p>
         </div>
 
         <div className="category-filters">
@@ -67,7 +69,7 @@ function ServiceCatalogPage() {
                 <p>{service.description}</p>
                 <div className="service-meta">
                   <span className="service-category">{service.category}</span>
-                  <span className="service-sla">⏱ {service.sla_hours}h SLA</span>
+                  <span className="service-sla">⏱ {service.sla_hours}{t("slaHours")}</span>
                 </div>
               </div>
               {!isAdmin() && (
@@ -75,13 +77,13 @@ function ServiceCatalogPage() {
                   className="request-btn"
                   onClick={() => navigate(`/tickets/create?service=${service.id}&name=${service.name}`)}
                 >
-                  Request
+                  {t("requestService")}
                 </button>
               )}
             </div>
           ))}
           {filtered.length === 0 && (
-            <p style={{color: "#64748b"}}>No services found.</p>
+            <p style={{color: "#64748b"}}>{t("noServicesAvailable")}</p>
           )}
         </div>
       </div>
