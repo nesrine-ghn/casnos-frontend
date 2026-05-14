@@ -72,8 +72,10 @@ function MyTicketsPage() {
           ))}
           {tickets.length === 0 && (
             <div className="no-tickets">
-              <p>No tickets yet. Submit your first request!</p>
-              <button className="btn-add" onClick={() => navigate("/services")}>Browse Services</button>
+              <p>{t("noTickets")}</p>
+              <button className="btn-add" onClick={() => navigate("/services")}>
+                {t("browseServices")}
+              </button>
             </div>
           )}
         </div>

@@ -14,12 +14,11 @@
   gap: 3rem;
 }
 
-.logo h2 {
+.logo img {
   margin: 0;
   color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  letter-spacing: 1px;
+  height: auto;
+  width: auto;
 }
 
 .nav-links {

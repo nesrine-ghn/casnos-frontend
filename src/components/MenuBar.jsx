@@ -5,8 +5,8 @@ import { useLanguage } from "../context/LanguageContext";
 import "../styles/MenuBar.css";
 
 function MenuBar() {
-  const { user, logout, isAdmin, isAgent } = useContext(AuthContext);
-   const { language, setLanguage, t } = useLanguage();
+  const { user, logout, isAdmin, isAgent, isAgentManager } = useContext(AuthContext);
+  const { language, setLanguage, t } = useLanguage();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -24,7 +24,7 @@ function MenuBar() {
     <nav className="menu-bar">
       <div className="menu-left">
         <div className="logo">
-          <h2>CASNOS</h2>
+          <img src="../assets/images/logo-01.png" alt="CASNOS" className="logo-img" />
         </div>
 
         <div className="nav-links">
@@ -36,6 +36,15 @@ function MenuBar() {
               <Link to="/admin/departments" className="nav-link">{t("departments")}</Link>
               <Link to="/admin/roles" className="nav-link">{t("roles")}</Link>
               <Link to="/services" className="nav-link">{t("services")}</Link>
+              <Link to="/analytics/admin" className="nav-link">{t("analytics")}</Link>
+            </>
+          )}
+          {/* AGENT MANAGER links */}
+          {isAgentManager() && (
+            <>
+              <Link to="/manager" className="nav-link">{t("dashboard")}</Link>
+              <Link to="/services" className="nav-link">{t("services")}</Link>
+              {/*<Link to="/analytics/manager" className="nav-link">{t("analytics")}</Link>*/}
             </>
           )}
 
@@ -50,7 +59,7 @@ function MenuBar() {
           )}
 
           {/* EMPLOYEE links */}
-          {!isAdmin() && !isAgent() && (
+          {!isAdmin() && !isAgent() && !isAgentManager() && (
             <>
               {/*<Link to="/dashboard" className="nav-link">{t("dashboard")}</Link>*/}
               <Link to="/services" className="nav-link">{t("services")}</Link>

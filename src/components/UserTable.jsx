@@ -4,7 +4,7 @@ import { useLanguage } from "../context/LanguageContext";
 import "../styles/UsersTable.css";
 
 // ✅ Add users prop to receive pre-filtered users
-function UserTable({ users: propUsers, onRefresh }) {
+function UserTable({ users: propUsers, onRefresh, filter, onFilterChange }) {
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -134,6 +134,32 @@ function UserTable({ users: propUsers, onRefresh }) {
       <div className="table-header">
         <h2>{t("userManagement")}</h2>
         <div className="table-actions">
+
+        {/* ✅ FILTER BUTTONS MOVED HERE */}
+        <div className="filter-buttons">
+          <button 
+            className={filter === "all" ? "active" : ""}
+            onClick={() => onFilterChange("all")}
+          >
+            {t("all")}
+          </button>
+
+          <button 
+            className={filter === "active" ? "active" : ""}
+            onClick={() => onFilterChange("active")}
+          >
+            {t("active")}
+          </button>
+
+          <button 
+            className={filter === "pending" ? "active" : ""}
+            onClick={() => onFilterChange("pending")}
+          >
+            {t("pending")}
+          </button>
+        </div>
+
+        {/* existing stuff */}
           <input
             type="text"
             placeholder={t("searchUsers")}

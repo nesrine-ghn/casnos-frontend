@@ -37,6 +37,9 @@ function Loginform() {
       } else if (res.data.user.role === "Technician") {
         console.log("🔍 Navigating to /agent");
         navigate("/agent");
+      } else if (res.data.user.role === "IT Agent Manager"){
+        console.log("🔍 Navigating to /manager");
+        navigate("/manager");
       } else {
         console.log("🔍 Navigating to /dashboard");
         navigate("/tickets/my");

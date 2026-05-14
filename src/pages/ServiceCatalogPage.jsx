@@ -25,7 +25,7 @@ function ServiceCatalogPage() {
     }
   };
 
-  const categories = ["All", "Hardware", "Software", "Access"];
+  const categories = ["All", "Hardware", "Software", "Access", "Network", "Security", "Other"];
 
   const filtered = filter === "All"
     ? services
@@ -35,6 +35,9 @@ function ServiceCatalogPage() {
     Hardware: "🖥️",
     Software: "💿",
     Access: "🔑",
+    Network: "🌐",
+    Security: "🔒",
+    Other: "📦"
   };
 
   return (

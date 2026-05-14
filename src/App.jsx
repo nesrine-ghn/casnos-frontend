@@ -12,6 +12,8 @@ import CreateTicketPage from "./pages/CreateTicketPage";
 import MyTicketsPage from "./pages/MyTicketsPage";
 import AgentDashboard from "./pages/AgentDashboard";
 import TicketsPage from "./pages/TicketsPage";
+import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
+import AgentManagerDashboard from "./pages/AgentManagerDashboard";
 
 function App() {
 
@@ -50,6 +52,12 @@ function App() {
                   <ServiceCatalogPage />
                 </ProtectedRoute>
         } />
+          <Route path="/analytics/admin" element={  
+                <ProtectedRoute adminOnly={true}>
+                  <AdminAnalyticsPage />
+                </ProtectedRoute>
+        } />
+        
 
         {/* Regular user route (just needs to be logged in) */}
         {/*<Route
@@ -87,6 +95,13 @@ function App() {
           <ProtectedRoute agentOnly={true}>
             <TicketsPage /> 
           </ProtectedRoute> 
+        } />
+
+        {/* Agent Manager route */}
+        <Route path="/manager" element={
+          <ProtectedRoute agentManagerOnly={true}>
+            <AgentManagerDashboard />
+          </ProtectedRoute>
         } />
       </Routes>
 

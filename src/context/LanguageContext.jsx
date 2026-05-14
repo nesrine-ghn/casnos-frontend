@@ -208,6 +208,8 @@ export const translations = {
     security: "Security",
     support: "Support",
     maintenance: "Maintenance",
+    other: "Other",
+    noServicesAvailable: "No services available",
     // ==================== DASHBOARD ====================
     manageOrganization: "Manage your organization from this dashboard",
     quickOverview: "Quick Overview",
@@ -493,6 +495,7 @@ export const translations = {
     support: "Support",
     maintenance: "Maintenance",
     other: "Autre",
+    noServicesAvailable: "Aucun service disponible",
       // ==================== DASHBOARD ====================
     manageOrganization: "Gérez votre organisation depuis ce tableau de bord",
     quickOverview: "Aperçu rapide",
@@ -777,6 +780,7 @@ export const translations = {
     support: "الدعم",
     maintenance: "الصيانة",
     other: "أخرى",
+    noServicesAvailable: "لا توجد خدمات متاحة",
     // ==================== DASHBOARD ====================
     manageOrganization: "إدارة منظمتك من خلال هذه اللوحة",
     quickOverview: "نظرة سريعة",

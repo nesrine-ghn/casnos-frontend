@@ -38,6 +38,8 @@ export const AuthProvider = ({ children }) => {
       navigate("/agent");
     } else if (userData.role === "admin") {
       navigate("/admin");
+    } else if (userData.role === "IT Agent Manager") {
+      navigate("/manager");
     } else {
       navigate("/dashboard"); // default user
     }
@@ -63,6 +65,9 @@ export const AuthProvider = ({ children }) => {
     return user?.role === "Technician";
   };
 
+  const isAgentManager = () => {
+    return user?.role === "IT Agent Manager";
+  };
   // 7. VALUES SHARED
   const value = {
     user,
@@ -71,6 +76,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     isAdmin,
     isAgent,
+    isAgentManager,
     isAuthenticated: !!token,// convert token to boolean (true if exists, false if null)
   };
 

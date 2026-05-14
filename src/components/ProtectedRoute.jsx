@@ -22,6 +22,7 @@ function ProtectedRoute({ children, adminOnly = false }) {
     return <Navigate to="/dashboard" replace />; // Or wherever non-admins should go
   }
 
+
   console.log("✅ Access granted");
   // 3. All checks passed → show the page
   return children;

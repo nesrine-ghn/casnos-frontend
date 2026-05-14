@@ -59,30 +59,14 @@ function UsersPage() {
     <>
       <div className="admin-dashboard">
         <MenuBar />
-        <div className="filter-buttons">
-          <button 
-            className={filter === "all" ? "active" : ""}
-            onClick={() => handleFilterChange("all")}
-          >
-            {t("all")}
-          </button>
-
-          <button 
-            className={filter === "active" ? "active" : ""}
-            onClick={() => handleFilterChange("active")}
-          >
-            {t("active")}
-          </button>
-
-          <button 
-            className={filter === "pending" ? "active" : ""}
-            onClick={() => handleFilterChange("pending")}
-          >
-            {t("pending")}
-          </button>
-        </div>
+        
         <div className="dashboard-content">
-          <UserTable users={filteredUsers} onRefresh={fetchUsers} />
+          <UserTable 
+          users={filteredUsers} 
+          onRefresh={fetchUsers} 
+          filter={filter}
+          onFilterChange={handleFilterChange}
+          />
         </div>
       </div>
     </>
