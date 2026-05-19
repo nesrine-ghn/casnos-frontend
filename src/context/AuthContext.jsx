@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  // 4. LOGIN + REDIRECT 🎯
+  // 4. LOGIN + REDIRECT
   const login = (token, userData) => {
     setToken(token);
     setUser(userData);
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
 
-    // ✅ ROLE-BASED REDIRECT
+    // ROLE-BASED REDIRECT
     if (userData.role === "agent") {
       navigate("/agent");
     } else if (userData.role === "admin") {

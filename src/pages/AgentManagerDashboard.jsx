@@ -10,7 +10,7 @@ function AgentManagerDashboard() {
   const { user } = useContext(AuthContext);
   const { t } = useLanguage();
   
-  // ✅ SINGLE analytics state with default structure
+  // SINGLE analytics state with default structure
   const [analytics, setAnalytics] = useState({
     teamWorkload: {
       unassigned: 0,
@@ -68,7 +68,7 @@ function AgentManagerDashboard() {
       <MenuBar />
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1>Welcome, {user?.firstname}!</h1>
+          <h1>{t("welcome")}, {user?.firstname}!</h1>
           <p>Manage your IT team and ticket assignments</p>
         </div>
 
